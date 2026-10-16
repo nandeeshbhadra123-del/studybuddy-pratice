@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta focus-stats containerharset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyBuddy | Student Study Planner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="#" class="brand"><span class="brand-icon">✦</span> StudyBuddy</a>
+      <p class="side-label">WORKSPACE</p>
+      <a class="nav-link active" href="#dashboard">▦ &nbsp; Dashboard</a>
+      <a class="nav-link" href="#tasks">☷ &nbsp; My Study Tasks</a>
+      <a class="nav-link" href="#focusPanel">◔ &nbsp; Focus Mode</a>
+      <div class="sidebar-note">
+        <span>✧</span>
+        <h3>Small steps add up.</h3>
+        <p>Your future self will thank you for studying today.</p>
+      </div>
+      <div class="sidebar-footer">MADE FOR YOUR NEXT BIG GOAL ✨</div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL STUDY SPACE</p>
+          <h1>Study dashboard <span>✦</span></h1>
+          <p class="subtitle">A little progress every day goes a long way.</p>
+        </div>
+        <div class="date-chip" id="todayDate">📅 Today</div>
+      </header>
+
+      <section class="welcome-banner">
+        <div>
+          <p class="banner-tag">YOUR GOALS, YOUR PACE</p>
+          <h2>Make today count.</h2>
+          <p>Plan your tasks, stay focused, and celebrate every win.</p>
+          <a href="#taskForm" class="banner-button">+ Add a study task</a>
+        </div>
+        <div class="banner-art" aria-hidden="true">
+          <div class="art-circle">✦</div>
+          <div class="art-book">📚</div>
+          <div class="art-sparkle sparkle-one">✧</div>
+          <div class="art-sparkle sparkle-two">✦</div>
+        </div>
+      </section>
+
+      <section class="stats-grid" id="dashboard">
+        <article class="stat-card purple">
+          <div class="stat-top"><span>Total tasks</span><span class="stat-icon">▤</span></div>
+          <div class="stat-number" id="totalCount">0</div>
+          <p>Everything on your list</p>
+        </article>
+        <article class="stat-card green">
+          <div class="stat-top"><span>Completed</span><span class="stat-icon">✓</span></div>
+          <div class="stat-number" id="completedCount">0</div>
+          <p>Look at you go!</p>
+        </article>
+        <article class="stat-card orange">
+          <div class="stat-top"><span>Pending</span><span class="stat-icon">◷</span></div>
+          <div class="stat-number" id="pendingCount">0</div>
+          <p>One step at a time</p>
+        </article>
+        <article class="stat-card blue">
+          <div class="stat-top"><span>Progress</span><span class="stat-icon">↗</span></div>
+          <div class="stat-number" id="progressCount">0%</div>
+          <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        </article>
+      </section>
+      <!-- ===== FOCUS MODE (start) ===== -->
+      <section class="panel focus-panel" id="focusPanel" data-mode="focus">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STAY FOCUSED</p>
+            <h2>Focus Mode</h2>
+          </div>
+          <span class="count-pill focus-mode-pill" id="focusModePill">Focus</span>
+        </div>
+
+        <div class="focus-layout">
+          <div class="focus-timer-card">
+            <div class="focus-modes" role="group" aria-label="Timer mode">
+              <button type="button" class="focus-mode-button is-active" id="focusModeFocus" data-mode="focus" aria-pressed="true">Focus</button>
+              <button type="button" class="focus-mode-button" id="focusModeBreak" data-mode="break" aria-pressed="false">Short Break</button>
+            </div>
+
+            <div class="focus-time" id="focusTimeDisplay" role="timer">00:10</div>
+            <p class="focus-status" id="focusStatusText">Ready to focus</p>
+
+            <div class="focus-controls">
+              <button type="button" class="primary-button focus-button" id="focusStartButton">Start</button>
+              <button type="button" class="icon-button focus-button" id="focusResetButton">Reset</button>
+            </div>
+          </div>
+
+          <div class="focus-stats">
+            <div class="focus-stat">
+              <div class="focus-stat-number" id="focusSessionCount">0</div>
+              <p>Sessions completed</p>
+            </div>
+            <div class="focus-stat">
+              <div class="focus-stat-number" id="focusTotalMinutes">0</div>
+              <p>Focus minutes</p>
+            </div>
+          </div><!-- Daily Study Goal (Step 1) -->
+<section class="goal-card" aria-labelledby="goalHeading">
+  <h3 class="goal-heading" id="goalHeading">Daily Study Goal</h3>
+
+  <p class="goal-status" id="goalStatus" role="status" aria-live="polite">
+    Set your daily goal to start tracking your focus time.
+  </p>
+
+  <form class="goal-form" id="goalForm" novalidate>
+    <div class="goal-field">
+      <label class="goal-label" for="goalMinutesInput">Daily goal (minutes)</label>
+      <input
+        class="goal-input"
+        id="goalMinutesInput"
+        name="goalMinutes"
+        type="number"
+        inputmode="numeric"
+        min="15"
+        max="480"
+        step="1"
+        placeholder="e.g. 120"
+        required
+        aria-describedby="goalInputHint goalError"
+      >
+      <p class="goal-hint" id="goalInputHint">Enter a whole number from 15 to 480.</p>
+      <p class="goal-error" id="goalError" role="alert" hidden></p>
+    </div>
+    <button class="goal-save-button" id="goalSaveButton" type="submit">Save goal</button>
+  </form>
+
+  <div class="goal-progress">
+    <div class="goal-progress-header">
+      <span class="goal-progress-label" id="goalProgressLabel">Today's progress</span>
+      <span class="goal-percent" id="goalPercent">0%</span>
+    </div>
+
+    <div
+      class="goal-progress-track"
+      id="goalProgressBar"
+      role="progressbar"
+      aria-labelledby="goalProgressLabel"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-valuetext="No daily goal set"
+    >
+      <div class="goal-progress-fill" id="goalProgressFill" style="width: 0%"></div>
+    </div>
+
+    <p class="goal-summary">
+      <span id="goalMinutesSummary">0 / – min</span>
+      <span class="goal-sessions">
+        Focus sessions today: <strong id="goalSessionCount">0</strong>
+      </span>
+    </p>
+  </div>
+</section>
+        </div>
+      </section>
+      <!-- ===== FOCUS MODE (end) ===== -->
+      <div class="content-grid">
+        <section class="panel task-panel" id="tasks">
+          <div class="panel-heading">
+            <div><p class="eyebrow">STAY ON TRACK</p><h2>Your study tasks</h2></div>
+            <span class="count-pill" id="taskPill">0 tasks</span>
+          </div>
+
+          <div class="filters">
+            <input id="searchInput" type="search" placeholder="⌕  Search tasks..." aria-label="Search tasks">
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="all">All statuses</option>
+              <option value="pending">Pending</option>
+              <option value="completed">Completed</option>
+            </select>
+            <select id="subjectFilter" aria-label="Filter by subject">
+              <option value="all">All subjects</option>
+            </select>
+          </div>
+
+          <div id="taskList" class="task-list"></div>
+          <div id="emptyState" class="empty-state" hidden>
+            <div>📖</div><h3>No tasks found</h3>
+            <p>Add a task or change your filters to see your study plan.</p>
+          </div>
+        </section>
+
+        <section class="panel form-panel" id="taskForm">
+          <div class="panel-heading">
+            <div><p class="eyebrow">PLAN AHEAD</p><h2>Add a task</h2></div>
+            <span class="form-icon">✎</span>
+          </div>
+          <form id="studyForm">
+            <label for="taskTitle">Task name <span>*</span></label>
+            <input id="taskTitle" name="title" maxlength="100" placeholder="e.g. Revise chapter 3" required>
+
+            <label for="taskSubject">Subject <span>*</span></label>
+            <select id="taskSubject" name="subject" required>
+              <option value="">Choose a subject</option>
+              <option>Mathematics</option>
+              <option>Computer Science</option>
+              <option>Physics</option>
+              <option>Chemistry</option>
+              <option>English</option>
+              <option>Other</option>
+            </select>
+
+            <label for="taskDate">Due date <span>*</span></label>
+            <input id="taskDate" name="dueDate" type="date" required>
+
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority" name="priority">
+              <option value="Medium">Medium</option>
+              <option value="High">High</option>
+              <option value="Low">Low</option>
+            </select>
+
+            <button type="submit" class="primary-button">＋ Add to my plan</button>
+            <p class="form-footnote">✦ You can do this. One task at a time.</p>
+          </form>
+        </section>
+      </div>
+      <footer class="page-footer">Made with purpose, powered by your goals. ✦</footer>
+    </main>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
